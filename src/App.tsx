@@ -3,7 +3,6 @@ import BuyerSignUp from "./components/AuthForms/BuyerSignUp";
 import SellerSignUp from "./components/AuthForms/SellerSignUp";
 import NavBar from "./components/NavBar";
 import WelcomeHero from "./components/WelcomeHero";
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LogInForm from "./components/AuthForms/LogInForm";
 import { BuyerDashboard } from "./components/Dashboard/Buyer/BuyerDashboard";

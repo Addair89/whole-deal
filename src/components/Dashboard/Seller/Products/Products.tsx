@@ -2,7 +2,6 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../../../AuthContext";
 import SellerSideBar from "../SellerSideBar";
 import { Loader } from "../../../Loader";
-import { useNavigate } from "react-router-dom";
 import { AddProductForm } from "./AddProductForm";
 import { EditProductForm } from "./EditProductForm";
 
@@ -11,7 +10,6 @@ export const Products = () => {
   if (!customer) {
     return <div>No customer data available</div>;
   }
-  const navigate = useNavigate();
 
   interface Product {
     id: number;
