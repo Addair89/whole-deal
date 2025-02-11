@@ -1,4 +1,3 @@
-import React from "react";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../../AuthContext";
 import SellerSideBar from "./SellerSideBar";
