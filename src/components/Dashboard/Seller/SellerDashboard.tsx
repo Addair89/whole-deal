@@ -26,7 +26,9 @@ export const SellerDashboard = () => {
     const fetchOrders = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/sellers/next-day-orders/${customer.id}`
+          `${import.meta.env.VITE_API_BASE_URL}/api/sellers/next-day-orders/${
+            customer.id
+          }`
         );
         if (!response.ok) throw new Error("Failed to fetch orders");
 

@@ -23,10 +23,11 @@ const BuyerSignUp = () => {
   const { setCustomer } = useContext(AuthContext);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log(import.meta.env.VITE_API_BASE_URL);
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/buyers/signup",
+        `${import.meta.env.VITE_API_BASE_URL}/api/buyers/signup`,
         formData
       );
 

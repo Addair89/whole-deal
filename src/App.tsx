@@ -20,7 +20,7 @@ function App() {
       <Router>
         {customer === null && <NavBar />}
         <Routes>
-          <Route path="/welcome" element={<WelcomeHero />} />
+          <Route path="/" element={<WelcomeHero />} />
           <Route path="/login" element={<LogInForm />} />
           <Route path="/buyer-sign-up" element={<BuyerSignUp />} />
           <Route path="/buyer-dashboard" element={<BuyerDashboard />} />

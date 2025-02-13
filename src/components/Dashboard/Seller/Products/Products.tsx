@@ -32,7 +32,9 @@ export const Products = () => {
   const handleDeleteProduct = async (productId: number) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/sellers/delete-product/${productId}`,
+        `${
+          import.meta.env.VITE_API_BASE_URL
+        }/api/sellers/delete-product/${productId}`,
         {
           method: "DELETE",
         }
@@ -49,7 +51,7 @@ export const Products = () => {
   ) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/sellers/add-product`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/sellers/add-product`,
         {
           method: "POST",
           headers: {
@@ -79,7 +81,9 @@ export const Products = () => {
     console.log("Updating product:", product);
     try {
       const result = await fetch(
-        `http://localhost:5000/api/sellers/edit-product/${product.id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/sellers/edit-product/${
+          product.id
+        }`,
         {
           method: "PUT",
           headers: {

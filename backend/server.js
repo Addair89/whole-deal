@@ -6,9 +6,25 @@ import userRoutes from "./routes/users.js";
 import pool from "./db/db.js";
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 4000;
 
 app.use(cors());
+
+// Handle preflight requests
+app.options("*", cors());
+
+// Log incoming requests for debugging
+app.use((req, res, next) => {
+  console.log(
+    "Incoming request:",
+    req.method,
+    req.url,
+    "from origin:",
+    req.headers.origin
+  );
+  next();
+});
+
 app.use(express.json());
 
 app.use("/api/sellers", sellerRoutes);

@@ -3,12 +3,15 @@ const { Pool } = pkg;
 import dotenv from "dotenv";
 dotenv.config();
 
+// Parse the DB_URL from Neon
+const connectionString = process.env.DATABASE_URL;
+console.log("DB_URL", connectionString);
+
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  connectionString: connectionString,
+  ssl: {
+    rejectUnauthorized: false, // Required for Neon
+  },
 });
 
 export default pool;

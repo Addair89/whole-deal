@@ -25,8 +25,14 @@ const SellerSignUp = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/sellers/signup",
-        formData
+        `${import.meta.env.VITE_API_BASE_URL}/api/sellers/signup`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json", // Add this header
+          },
+          withCredentials: false, // Required if using credentials: true in CORS
+        }
       );
 
       console.log("Response from server:", response.data); // Debugging line
