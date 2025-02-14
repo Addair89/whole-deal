@@ -46,17 +46,18 @@ export const BuyerDashboard = () => {
   }, []); // Re-run effect if customer.id changes
 
   return (
-    <section className="flex min-h-screen bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-white via-slate-950 to-white">
+    <section className="flex min-h-screen bg-[#f0f4f8]">
       <BuyerSideBar />
       <div className="flex-1 p-6 ml-[15%]">
-        <h1 className=" text-6xl m-10 text-slate-50">
+        <h1 className=" text-6xl m-10 text-[#474747]">
           {customer.company_name.toUpperCase()}
         </h1>
-        <h3 className=" text-4xl m-10 text-slate-50">
+        <h3 className=" text-4xl  text-[#474747]">
           Here's whats going on today.
         </h3>
+        <hr className="border border-[#474747] my-10"></hr>
         {/* Next-Day Orders Section */}
-        <div className="bg-slate-100 p-4 rounded-md shadow-md">
+        <div className="bg-[#fff] text-[#474747] p-4 rounded-[4px] shadow-[-2px_0px_10px_5px_rgba(0,_0,_0,_0.5)]">
           {loading ? (
             <Loader />
           ) : (
@@ -86,23 +87,23 @@ export const BuyerDashboard = () => {
 
           <button
             onClick={() => navigate("/buyer-all-orders")}
-            className="mt-4 bg-slate-950 text-slate-100 p-2 rounded-lg cursor-pointer hover:bg-slate-100 hover:text-slate-950 hover:border hover:border-slate-950"
+            className="mt-4 bg-[#cecece] text-[#202020] p-2 rounded-lg cursor-pointer hover:bg-[#202020] hover:text-[#cecece] hover:border hover:border-[#cecece]"
           >
             View All Orders
           </button>
         </div>
-
+        <hr className="border border-[#cecece] my-10"></hr>
         {/* Quick Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-          <div className="bg-slate-100 p-4 text-slate-800 rounded-xl shadow-md">
+          <div className="bg-[#cecece] p-4 text-[#202020] rounded-xl shadow-md">
             <h3 className="text-lg font-bold">Total Spent This Month</h3>
             <p className="text-2xl">$5,230</p>
           </div>
-          <div className="bg-slate-100 p-4 text-slate-800 rounded-xl shadow-md">
+          <div className="bg-[#cecece] p-4 text-[#202020] rounded-xl shadow-md">
             <h3 className="text-lg font-bold">Pending Orders</h3>
             <p className="text-2xl">12</p>
           </div>
-          <div className="bg-slate-100 p-4 text-slate-800 rounded-xl shadow-md">
+          <div className="bg-[#cecece] p-4 text-[#202020] rounded-xl shadow-md">
             <h3 className="text-lg font-bold">Urgent Orders</h3>
             <p className="text-2xl">3</p>
           </div>

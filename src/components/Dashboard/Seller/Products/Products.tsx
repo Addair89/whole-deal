@@ -109,7 +109,15 @@ export const Products = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/sellers/all-products/${customer.id}`
+          `${import.meta.env.VITE_API_BASE_URL}/api/sellers/all-products/${
+            customer.id
+          }`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
         if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
@@ -128,7 +136,7 @@ export const Products = () => {
     fetchProducts();
   }, []);
   return (
-    <section className="flex min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white via-slate-950 to-white">
+    <section className="flex min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#121212] via-slate-950 to-[#1E1E2E]">
       <SellerSideBar />
       <div className="flex-1 p-6 ml-[15%] relative">
         <div className="flex justify-between items-center">

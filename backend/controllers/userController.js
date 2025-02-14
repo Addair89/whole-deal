@@ -47,6 +47,37 @@ const loginUser = async (req, res) => {
   }
 };
 
+const updateLocation = async (req, res) => {
+  const { street, city, state, userType, userId } = req.body;
+
+  try {
+    // Get coordinates for the address
+    const { latitude, longitude } = await geocodeAddress(street, city, state);
+
+    // Update the appropriate table based on user type
+    const tableName = userType === "seller" ? "sellers" : "buyers";
+
+    const result = await pool.query(
+      `UPDATE ${tableName}
+       SET latitude = $1, 
+           longitude = $2, 
+           location_updated_at = CURRENT_TIMESTAMP
+       WHERE id = $3
+       RETURNING *`,
+      [latitude, longitude, userId]
+    );
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error updating location:", error);
+    res.status(500).json({
+      error: "Failed to update location",
+      details: error.message,
+    });
+  }
+};
+
 export default {
   loginUser,
+  updateLocation,
 };

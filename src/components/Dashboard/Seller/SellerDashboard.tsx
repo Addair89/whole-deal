@@ -46,7 +46,7 @@ export const SellerDashboard = () => {
   }, []); // Re-run effect if customer.id changes
 
   return (
-    <section className="flex min-h-screen bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-white via-slate-950 to-white">
+    <section className="flex min-h-screen bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-[#121212] via-slate-950 to-[#1E1E2E]">
       <SellerSideBar />
       <div className="flex-1 p-6 ml-[15%]">
         <h1 className=" text-6xl m-10 text-slate-50">

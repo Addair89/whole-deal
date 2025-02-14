@@ -63,7 +63,36 @@ const getAllOrders = async (req, res) => {
   }
 };
 
+const getNearbySellers = async (req, res) => {
+  const { latitude, longitude, radius = 10 } = req.query; // radius in kilometers
+
+  try {
+    const result = await pool.query(
+      `SELECT 
+        id, address, city, state,
+        latitude, longitude,
+        ( 6371 * acos( cos( radians($1) ) 
+          * cos( radians(latitude) ) 
+          * cos( radians(longitude) - radians($2) ) 
+          + sin( radians($1) ) 
+          * sin( radians(latitude) ) ) ) AS distance
+       FROM sellers
+       WHERE latitude IS NOT NULL
+       AND longitude IS NOT NULL
+       HAVING distance < $3
+       ORDER BY distance`,
+      [latitude, longitude, radius]
+    );
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error finding nearby sellers:", error);
+    res.status(500).json({ error: "Failed to find nearby sellers" });
+  }
+};
+
 export default {
   createBuyer,
   getAllOrders,
+  getNearbySellers,
 };
