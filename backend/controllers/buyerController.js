@@ -14,17 +14,42 @@ const createBuyer = async (req, res) => {
     city,
     state,
     password,
+    latitude,
+    longitude,
   } = req.body;
 
   try {
     // Hash the password
-    const saltRounds = 10; // Number of salt rounds for hashing
+    const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
-    // Insert the new buyer into the database
+    // Insert the new buyer into the database with coordinates
     const result = await pool.query(
-      "INSERT INTO buyers (company_name, email, phone, address, city, state, password_hash) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-      [companyName, email, phone, address, city, state, passwordHash]
+      `INSERT INTO buyers (
+        company_name, 
+        email, 
+        phone, 
+        address, 
+        city, 
+        state, 
+        password_hash,
+        latitude,
+        longitude,
+        location_updated_at
+      ) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, CURRENT_TIMESTAMP) 
+      RETURNING *`,
+      [
+        companyName,
+        email,
+        phone,
+        address,
+        city,
+        state,
+        passwordHash,
+        latitude,
+        longitude,
+      ]
     );
 
     const buyer = result.rows[0];
@@ -39,6 +64,18 @@ const createBuyer = async (req, res) => {
     res.status(201).json({ token, customer: buyer });
   } catch (err) {
     console.error("Error creating buyer:", err);
+
+    // More specific error handling
+    if (err.code === "23505" && err.constraint === "buyers_email_key") {
+      return res.status(400).json({ error: "Email already exists" });
+    }
+
+    // Handle invalid coordinates
+    if (err.code === "23514") {
+      // Check constraint violation
+      return res.status(400).json({ error: "Invalid coordinates provided" });
+    }
+
     res.status(500).json({ error: "Failed to create buyer" });
   }
 };

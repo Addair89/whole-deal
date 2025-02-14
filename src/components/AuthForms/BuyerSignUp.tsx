@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { AuthContext } from "../../AuthContext";
 
 const BuyerSignUp = () => {
@@ -12,28 +11,94 @@ const BuyerSignUp = () => {
     city: "",
     state: "",
     password: "",
+    latitude: null as number | null,
+    longitude: null as number | null,
   });
 
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { setCustomer } = useContext(AuthContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const { setCustomer } = useContext(AuthContext);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(import.meta.env.VITE_API_BASE_URL);
-    e.preventDefault();
+  const geocodeAddress = async (
+    street: string,
+    city: string,
+    state: string
+  ) => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/api/buyers/signup`,
-        formData
+      const address = `${street}, ${city}, ${state}`;
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+          address
+        )}&limit=1`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
       );
 
-      console.log("Response from server:", response.data); // Debugging line
+      if (!response.ok) {
+        throw new Error("Geocoding failed");
+      }
 
-      const { token, customer } = response.data;
+      const data = await response.json();
+
+      console.log(data);
+
+      if (!data || data.length === 0) {
+        throw new Error("Address not found");
+      }
+
+      return {
+        latitude: parseFloat(data[0].lat),
+        longitude: parseFloat(data[0].lon),
+      };
+    } catch (error) {
+      console.error("Geocoding error:", error);
+      throw error;
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      // First, geocode the address
+      const { latitude, longitude } = await geocodeAddress(
+        formData.address,
+        formData.city,
+        formData.state
+      );
+
+      // Prepare the complete signup data including coordinates
+      const signupData = {
+        ...formData,
+        latitude,
+        longitude,
+      };
+
+      // Send signup request
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/buyers/signup`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(signupData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Signup failed");
+      }
+
+      const { token, customer } = await response.json();
 
       if (!token) {
         throw new Error("No token received from server.");
@@ -41,7 +106,6 @@ const BuyerSignUp = () => {
 
       localStorage.setItem("token", token);
       setCustomer(customer);
-      console.log("Customer set in context:", customer);
 
       alert("Buyer signup successful!");
       navigate("/buyer-dashboard");
@@ -54,29 +118,36 @@ const BuyerSignUp = () => {
         city: "",
         state: "",
         password: "",
+        latitude: null,
+        longitude: null,
       });
     } catch (error) {
       console.error("Error signing up buyer:", error);
-      alert("Failed to sign up seller. Please try again.");
+      alert(
+        "Failed to sign up buyer. Please check your address and try again."
+      );
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <div className="flex justify-center items-center">
       <form onSubmit={handleSubmit}>
         <fieldset className="fieldset grid-cols-1 w-lg bg-base-200 border border-base-300 p-4 rounded-box">
           <legend className="fieldset-legend text-2xl">Buyer Details</legend>
 
+          {/* Existing form fields remain the same */}
           <label className="fieldset-label">Company Name</label>
           <input
             required
             name="companyName"
             type="text"
             className="input w-full"
-            placeholder="Restatuant Name"
+            placeholder="Restaurant Name"
             value={formData.companyName}
             onChange={handleChange}
           />
-
           <label className="fieldset-label">Email</label>
           <input
             required
@@ -142,7 +213,9 @@ const BuyerSignUp = () => {
             onChange={handleChange}
           />
 
-          <button className="btn btn-neutral mt-4">Sign Up</button>
+          <button className="btn btn-neutral mt-4" disabled={loading}>
+            {loading ? "Signing Up..." : "Sign Up"}
+          </button>
         </fieldset>
       </form>
     </div>
