@@ -14,7 +14,7 @@ const SellerSideBar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/welcome");
+    navigate("/");
   };
   return (
     <div className="sidebar w-[15%] text-black bg-slate-400 h-screen text-2xl fixed">

@@ -13,7 +13,7 @@ const SellerSideBar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/welcome");
+    navigate("/");
   };
   return (
     <div className="sidebar w-[15%] text-white bg-[#23282e] h-screen text-2xl fixed">
