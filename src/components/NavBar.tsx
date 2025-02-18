@@ -2,15 +2,12 @@ import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { div } from "motion/react-client";
 
 const NavBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { customer, logout } = useContext(AuthContext);
   console.log("NavBar Customer:", customer?.company_name);
-
-  const locations = ["buyer-sign-up", "seller-sign-up", "login"];
 
   const handleLogOut = () => {
     logout();

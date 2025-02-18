@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const createSeller = async (req, res) => {
+  console.log("REQ>BODY", req.body);
   const {
     companyName,
     email,
