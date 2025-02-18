@@ -16,7 +16,7 @@ import { useContext } from "react";
 function App() {
   const { customer } = useContext(AuthContext);
   return (
-    <main>
+    <main className="font-mulish h-dvh">
       <Router>
         {customer === null && <NavBar />}
         <Routes>

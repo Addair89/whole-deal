@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { div } from "motion/react-client";
 
 const NavBar = () => {
   const location = useLocation();
@@ -9,13 +10,15 @@ const NavBar = () => {
   const { customer, logout } = useContext(AuthContext);
   console.log("NavBar Customer:", customer?.company_name);
 
+  const locations = ["buyer-sign-up", "seller-sign-up", "login"];
+
   const handleLogOut = () => {
     logout();
-    navigate("/welcome");
+    navigate("/");
   };
 
   return (
-    <div className="navbar bg-stone-900 text-white shadow-sm pb-2.5">
+    <div className="navbar bg-DBG-100 text-PBG-100 shadow-sm pb-2.5">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -59,10 +62,7 @@ const NavBar = () => {
           </ul>
         </div>
         {customer === null ? (
-          <a
-            onClick={() => navigate("/welcome")}
-            className="btn btn-ghost text-xl"
-          >
+          <a onClick={() => navigate("/")} className="btn btn-ghost text-xl">
             WholeDeal
           </a>
         ) : (
@@ -98,16 +98,37 @@ const NavBar = () => {
             Log Out
           </a>
         ) : (
-          <div>
-            {location.pathname === "/buyer-sign-up" ||
-              (location.pathname === "/seller-sign-up" && (
-                <a onClick={() => navigate("/welcome")} className="btn">
-                  SignUp
+          <div className="">
+            {location.pathname.includes("sign-up") ? (
+              <a
+                onClick={() => navigate("/login")}
+                className="bg-SBG-100 text-center block w-[7rem] text-PT-100 p-2 rounded-lg cursor-pointer hover:bg-DBG-100 hover:text-SBG-100 hover:border hover:border-PBG-100 shadow-PS hover:shadow-none"
+              >
+                Login
+              </a>
+            ) : location.pathname.includes("login") ? (
+              <a
+                onClick={() => navigate("/")}
+                className="bg-SBG-100 text-center block w-[7rem]  text-PT-100 p-2 rounded-lg cursor-pointer hover:bg-DBG-100 hover:text-SBG-100 hover:border hover:border-PBG-100 shadow-PS hover:shadow-none"
+              >
+                Sign Up
+              </a>
+            ) : (
+              <div className="flex gap-10">
+                <a
+                  onClick={() => navigate("/login")}
+                  className="bg-SBG-100 text-center w-[7rem] text-PT-100 p-2 rounded-lg cursor-pointer hover:bg-DBG-100 hover:text-SBG-100 hover:border hover:border-PBG-100 shadow-PS hover:shadow-none"
+                >
+                  Login
                 </a>
-              ))}
-            <a onClick={() => navigate("/login")} className="btn">
-              Login
-            </a>
+                <a
+                  onClick={() => navigate("/")}
+                  className=" bg-SBG-100 text-center w-[7rem] text-PT-100 p-2 rounded-lg cursor-pointer hover:bg-DBG-100 hover:text-SBG-100 hover:border hover:border-PBG-100 shadow-PS hover:shadow-none"
+                >
+                  Sign Up
+                </a>
+              </div>
+            )}
           </div>
         )}
       </div>

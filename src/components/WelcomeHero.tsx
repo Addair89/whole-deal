@@ -4,8 +4,8 @@ const Welcome = () => {
   const navigate = useNavigate();
 
   return (
-    <section className=" flex items-center justify-center">
-      <div className="hero bg-base-200 min-h-screen">
+    <section className="flex items-center justify-center">
+      <div className="hero bg-PBG-100 min-h-screen">
         <div className="hero-content text-center">
           <div className="max-w-3xl">
             <h1 className="text-8xl font-bold">
@@ -18,13 +18,13 @@ const Welcome = () => {
             <div className="flex justify-evenly">
               <button
                 onClick={() => navigate("/seller-sign-up")}
-                className="btn btn-xl btn-neutral"
+                className=" btn-xl bg-SBG-100 text-PT-100 p-4 rounded-lg cursor-pointer hover:bg-DBG-100 hover:text-ST-100 hover:shadow-PS mt-4"
               >
                 Sign Up as Seller
               </button>
               <button
                 onClick={() => navigate("/buyer-sign-up")}
-                className="btn btn-xl btn-accent"
+                className="btn-xl bg-SBG-100 text-PT-100 p-4 rounded-lg cursor-pointer hover:bg-DBG-100 hover:text-ST-100 hover:shadow-PS mt-4"
               >
                 Sign Up as Buyer
               </button>

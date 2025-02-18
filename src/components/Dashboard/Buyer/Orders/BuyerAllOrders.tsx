@@ -55,13 +55,13 @@ export const BuyerAllOrders = () => {
     fetchOrders();
   }, []);
   return (
-    <section className="flex min-h-screen bg-[#f0f4f8]">
+    <section className="flex min-h-screen bg-PBG-100 text-PT-100">
       <BuyerSideBar />
       <div className="flex-1 p-6 ml-[15%]">
-        <h1 className=" text-6xl mt-10 text-[#474747]">ALL ORDERS</h1>
+        <h1 className=" text-6xl mt-10 ">ALL ORDERS</h1>
         <hr className="border border-[#474747] my-10"></hr>
         {/* name of each tab group should be unique */}
-        <div className="bg-[#474747] p-4 rounded-md shadow-md">
+        <div className="p-4 rounded-md shadow-PS">
           {loading ? (
             <Loader />
           ) : (
@@ -69,7 +69,7 @@ export const BuyerAllOrders = () => {
               <input
                 type="radio"
                 name="my_tabs_2"
-                className="tab !text-[#f0f4f8] hover:!text-[#5e5d5d]"
+                className="tab "
                 aria-label="Tab 1"
               />
               <div className="tab-content bg-[#f0f4f8] text-[#474747] p-10">
@@ -94,7 +94,7 @@ export const BuyerAllOrders = () => {
               <input
                 type="radio"
                 name="my_tabs_2"
-                className="tab !text-[#f0f4f8] hover:!text-[#5e5d5d]"
+                className="tab "
                 aria-label="Tab 2"
                 defaultChecked
               />
@@ -120,7 +120,7 @@ export const BuyerAllOrders = () => {
               <input
                 type="radio"
                 name="my_tabs_2"
-                className="tab !text-[#f0f4f8] hover:!text-[#5e5d5d]"
+                className="tab "
                 aria-label="Tab 3"
               />
               <div className="tab-content bg-[#f0f4f8] text-[#474747] p-10">

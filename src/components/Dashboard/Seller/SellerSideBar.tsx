@@ -17,7 +17,7 @@ const SellerSideBar = () => {
     navigate("/");
   };
   return (
-    <div className="sidebar w-[15%] text-black bg-slate-400 h-screen text-2xl fixed">
+    <div className="sidebar w-[15%] text-white bg-[#23282e] h-screen text-2xl fixed">
       <p className="font-semibold p-8 text-center">WholeDeal</p>
       <div>
         <ul className="flex flex-col items-center justify-center ">

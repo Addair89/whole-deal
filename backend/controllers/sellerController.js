@@ -14,6 +14,8 @@ const createSeller = async (req, res) => {
     city,
     state,
     password,
+    latitude,
+    longitude,
   } = req.body;
 
   try {
@@ -23,8 +25,31 @@ const createSeller = async (req, res) => {
 
     // Insert the new buyer into the database
     const result = await pool.query(
-      "INSERT INTO sellers (company_name, email, phone, address, city, state, password_hash) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-      [companyName, email, phone, address, city, state, passwordHash]
+      `INSERT INTO sellers (
+        company_name, 
+        email, 
+        phone, 
+        address, 
+        city, 
+        state, 
+        password_hash,
+        latitude,
+        longitude,
+        location_updated_at
+      ) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, CURRENT_TIMESTAMP) 
+      RETURNING *`,
+      [
+        companyName,
+        email,
+        phone,
+        address,
+        city,
+        state,
+        passwordHash,
+        latitude,
+        longitude,
+      ]
     );
 
     const newSeller = result.rows[0];

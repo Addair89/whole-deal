@@ -57,7 +57,7 @@ export const BuyerDashboard = () => {
         </h3>
         <hr className="border border-[#474747] my-10"></hr>
         {/* Next-Day Orders Section */}
-        <div className="bg-[#fff] text-[#474747] p-4 rounded-[4px] shadow-[-2px_0px_10px_5px_rgba(0,_0,_0,_0.5)]">
+        <div className="bg-PBG-100 text-[#474747] p-4 rounded-[4px] shadow-[-2px_0px_10px_5px_rgba(0,_0,_0,_0.5)]">
           {loading ? (
             <Loader />
           ) : (
@@ -95,15 +95,15 @@ export const BuyerDashboard = () => {
         <hr className="border border-[#cecece] my-10"></hr>
         {/* Quick Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-          <div className="bg-[#cecece] p-4 text-[#202020] rounded-xl shadow-md">
+          <div className="bg-PBG-100 p-4 text-PT-100 rounded-xl shadow-PS">
             <h3 className="text-lg font-bold">Total Spent This Month</h3>
             <p className="text-2xl">$5,230</p>
           </div>
-          <div className="bg-[#cecece] p-4 text-[#202020] rounded-xl shadow-md">
+          <div className="bg-PBG-100 p-4 text-PT-100 rounded-xl shadow-PS">
             <h3 className="text-lg font-bold">Pending Orders</h3>
             <p className="text-2xl">12</p>
           </div>
-          <div className="bg-[#cecece] p-4 text-[#202020] rounded-xl shadow-md">
+          <div className="bg-PBG-100 p-4 text-PT-100 rounded-xl shadow-PS">
             <h3 className="text-lg font-bold">Urgent Orders</h3>
             <p className="text-2xl">3</p>
           </div>

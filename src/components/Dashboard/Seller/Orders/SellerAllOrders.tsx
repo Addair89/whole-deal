@@ -55,12 +55,13 @@ export const SellerAllOrders = () => {
     fetchOrders();
   }, []);
   return (
-    <section className="flex min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-950 via-zinc-400 to-slate-950">
+    <section className="flex min-h-screen bg-PBG-100 text-PT-100">
       <SellerSideBar />
       <div className="flex-1 p-6 ml-[15%]">
-        <h1 className=" text-6xl m-10 text-slate-50">ALL ORDERS</h1>
+        <h1 className=" text-6xl m-10 ">ALL ORDERS</h1>
+        <hr className="border border-[#474747] my-10"></hr>
         {/* name of each tab group should be unique */}
-        <div className="bg-slate-100/50 p-4 rounded-md shadow-md">
+        <div className="p-4 rounded-md shadow-PS">
           {loading ? (
             <Loader />
           ) : (
@@ -71,7 +72,7 @@ export const SellerAllOrders = () => {
                 className="tab"
                 aria-label="Tab 1"
               />
-              <div className="tab-content bg-slate-100 p-10">
+              <div className="tab-content p-10">
                 <ul>
                   {allOrders.length > 0 ? (
                     allOrders.map((order: Order) => (
@@ -97,7 +98,7 @@ export const SellerAllOrders = () => {
                 aria-label="Tab 2"
                 defaultChecked
               />
-              <div className="tab-content bg-slate-100 p-10">
+              <div className="tab-content bg-PBG-100 p-10">
                 <ul>
                   {pastOrders.length > 0 ? (
                     pastOrders.map((order: Order) => (
@@ -122,7 +123,7 @@ export const SellerAllOrders = () => {
                 className="tab"
                 aria-label="Tab 3"
               />
-              <div className="tab-content bg-slate-100 p-10">
+              <div className="tab-content bg-PBG-100 p-10">
                 <ul>
                   {futureOrders.length > 0 ? (
                     futureOrders.map((order: Order) => (

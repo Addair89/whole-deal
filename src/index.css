@@ -1,6 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Delius&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rowdies:wght@300;400;700&display=swap");
 @import "tailwindcss";
 @tailwind utilities;
 @plugin "daisyui";
+
+@theme {
+  --font-mulish: "Mulish", sans-serif;
+  --color-PBG-100: #f0f4f8;
+  --color-SBG-100: #cecece;
+  --color-DBG-100: #23282e;
+  --color-ST-100: #cecece;
+  --color-PT-100: #474747;
+  --shadow-PS: -2px 0px 5px 0px rgba(0, 0, 0, 0.5);
+}
 
 @plugin "daisyui/theme" {
   name: "autumn";

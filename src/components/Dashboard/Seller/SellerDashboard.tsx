@@ -46,17 +46,16 @@ export const SellerDashboard = () => {
   }, []); // Re-run effect if customer.id changes
 
   return (
-    <section className="flex min-h-screen bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-[#121212] via-slate-950 to-[#1E1E2E]">
+    <section className="flex min-h-screen bg-PBG-100 text-PT-100">
       <SellerSideBar />
       <div className="flex-1 p-6 ml-[15%]">
-        <h1 className=" text-6xl m-10 text-slate-50">
+        <h1 className=" text-6xl m-10 ">
           {customer.company_name.toUpperCase()}
         </h1>
-        <h3 className=" text-4xl m-10 text-slate-50">
-          Here's whats going on today.
-        </h3>
+        <h3 className=" text-4xl text-PT-100">Here's whats going on today.</h3>
+        <hr className="border border-PT-100 my-10"></hr>
         {/* Next-Day Orders Section */}
-        <div className="bg-slate-100 p-4 rounded-md shadow-md">
+        <div className="bg-PBG-100 text-PT-100 p-4 rounded-[4px] shadow-PS">
           {loading ? (
             <Loader />
           ) : (
@@ -86,7 +85,7 @@ export const SellerDashboard = () => {
 
           <button
             onClick={() => navigate("/seller-all-orders")}
-            className="mt-4 bg-slate-950 text-slate-100 p-2 rounded-lg cursor-pointer hover:bg-slate-100 hover:text-slate-950 hover:border hover:border-slate-950"
+            className="mt-4 bg-SBG-100 text-PT-100 p-2 rounded-lg cursor-pointer hover:bg-[#202020] hover:text-[#cecece] hover:border hover:border-[#cecece]"
           >
             View All Orders
           </button>
@@ -94,15 +93,15 @@ export const SellerDashboard = () => {
 
         {/* Quick Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-          <div className="bg-slate-100 p-4 text-slate-800 rounded-xl shadow-md">
+          <div className="bg-PBG-100 p-4 text-PT-100 rounded-xl shadow-PS">
             <h3 className="text-lg font-bold">Total Sales (This Month)</h3>
             <p className="text-2xl">$5,230</p>
           </div>
-          <div className="bg-slate-100 p-4 text-slate-800 rounded-xl shadow-md">
+          <div className="bg-PBG-100 p-4 text-PT-100 rounded-xl shadow-PS">
             <h3 className="text-lg font-bold">Pending Orders</h3>
             <p className="text-2xl">12</p>
           </div>
-          <div className="bg-slate-100 p-4 text-slate-800 rounded-xl shadow-md">
+          <div className="bg-PBG-100 p-4 text-PT-100 rounded-xl shadow-PS">
             <h3 className="text-lg font-bold">Urgent Orders</h3>
             <p className="text-2xl">3</p>
           </div>

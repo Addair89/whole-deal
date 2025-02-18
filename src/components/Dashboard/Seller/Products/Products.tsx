@@ -4,6 +4,7 @@ import SellerSideBar from "../SellerSideBar";
 import { Loader } from "../../../Loader";
 import { AddProductForm } from "./AddProductForm";
 import { EditProductForm } from "./EditProductForm";
+import { Trash2, Edit3 } from "lucide-react";
 
 export const Products = () => {
   const { customer } = useContext(AuthContext);
@@ -30,6 +31,7 @@ export const Products = () => {
   };
 
   const handleDeleteProduct = async (productId: number) => {
+    setLoading(true);
     try {
       const response = await fetch(
         `${
@@ -41,7 +43,9 @@ export const Products = () => {
       );
       if (!response.ok) throw new Error("Failed to delete product");
       setProducts(products.filter((product) => product.id !== productId));
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error("Error deleting product:", error);
     }
   };
@@ -49,6 +53,7 @@ export const Products = () => {
   const handleAddProduct = async (
     product: Omit<Product, "id" | "seller_id">
   ) => {
+    setLoading(true);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/api/sellers/add-product`,
@@ -66,7 +71,9 @@ export const Products = () => {
       setProducts([...products, newProduct.product]);
       console.log(products);
       setShowForm(false);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error("Error adding product:", error);
     }
   };
@@ -79,6 +86,7 @@ export const Products = () => {
 
   const handleEditProduct = async (product: Product) => {
     console.log("Updating product:", product);
+    setLoading(true);
     try {
       const result = await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/api/sellers/edit-product/${
@@ -99,7 +107,9 @@ export const Products = () => {
       setProducts((prevProducts) =>
         prevProducts.map((p) => (p.id === product.id ? product : p))
       );
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error("Error updating product:", error);
     }
   };
@@ -135,43 +145,48 @@ export const Products = () => {
     };
     fetchProducts();
   }, []);
+
   return (
-    <section className="flex min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#121212] via-slate-950 to-[#1E1E2E]">
+    <section className="flex min-h-screen bg-PBG-100">
       <SellerSideBar />
       <div className="flex-1 p-6 ml-[15%] relative">
         <div className="flex justify-between items-center">
-          <h1 className="text-6xl m-10 text-slate-50">All PRODUCTS</h1>
+          <h1 className="text-6xl mt-10 ml-10 text-PT-100">All PRODUCTS</h1>
           <button
             onClick={toggleForm}
-            className="m-10 bg-slate-950 text-slate-100 p-2 rounded-lg cursor-pointer hover:bg-slate-100 hover:text-slate-950 hover:border hover:border-slate-950"
+            className="mt-4 bg-SBG-100 text-PT-100 p-2 rounded-lg cursor-pointer hover:bg-DBG-100 hover:text-SBG-100 hover:border hover:border-PBG-100 shadow-PS hover:shadow-none"
           >
             Add New Product
           </button>
         </div>
-        <div className="bg-slate-100/50 p-4 rounded-md shadow-md">
+        <hr className="border border-PT-100 my-10"></hr>
+        <div className="bg-PBG-100 text-PT-100 p-4 rounded-[4px] shadow-PS">
           {loading ? (
             <Loader />
           ) : products.length === 0 ? (
-            <div className="bg-slate-100 p-10">No products available.</div>
+            <div className=" p-10">No products available.</div>
           ) : (
             <ul>
               {products.map((product) => (
                 <li
                   key={product.id}
-                  className="border-b bg-slate-100 p-10 flex gap-10 relative"
+                  className="border-b p-5 flex gap-10 relative"
                 >
-                  <span
-                    onClick={() => handleDeleteProduct(product.id)}
-                    className="absolute top-0 right-0 mt-4 mr-3 w-[7rem] text-center bg-slate-950/30 text-slate-100 p-2 rounded-lg cursor-pointer hover:bg-slate-100 hover:text-slate-950 hover:border hover:border-slate-950"
-                  >
-                    Delete
-                  </span>
-                  <span
-                    onClick={() => handleEditForm(product)}
-                    className="absolute bottom-0 right-0 mb-4 mr-3 w-[7rem] text-center bg-slate-950/30 text-slate-100 p-2 rounded-lg cursor-pointer hover:bg-slate-100 hover:text-slate-950 hover:border hover:border-slate-950"
-                  >
-                    Edit
-                  </span>
+                  <div className="absolute top-0 right-0 mt-2 mr-3 flex space-x-2">
+                    <button
+                      onClick={() => handleEditForm(product)}
+                      title="Edit Product"
+                      className="text-PT-100 p-1 rounded-lg cursor-pointer hover:text-black hover:scale-110"
+                    >
+                      <Edit3 size={20} />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteProduct(product.id)}
+                      className="text-PT-100 p-1 rounded-lg cursor-pointer hover:text-red-500 hover:scale-110"
+                    >
+                      <Trash2 size={20} />
+                    </button>
+                  </div>
                   <div>
                     <h2 className="text-xl font-semibold">{product.name}</h2>
                     <p className="text-gray-700">${product.price}</p>
@@ -184,7 +199,7 @@ export const Products = () => {
         </div>
         <button
           onClick={toggleForm}
-          className="m-10 bg-slate-950 text-slate-100 p-2 rounded-lg cursor-pointer hover:bg-slate-100 hover:text-slate-950 hover:border hover:border-slate-950"
+          className="m-10 bg-SBG-100 text-PT-100 p-2 rounded-lg cursor-pointer hover:bg-DBG-100 hover:text-SBG-100 hover:border hover:border-PBG-100 shadow-PS hover:shadow-none"
         >
           Add New Product
         </button>
@@ -195,7 +210,10 @@ export const Products = () => {
               className="absolute inset-0 bg-black/50 backdrop-blur-sm"
               onClick={toggleForm}
             ></div>
-            <AddProductForm handleAddProduct={handleAddProduct} />
+            <AddProductForm
+              loading={loading}
+              handleAddProduct={handleAddProduct}
+            />
           </div>
         )}
         {showEditForm && (
@@ -206,6 +224,7 @@ export const Products = () => {
               onClick={() => setShowEditForm(false)}
             ></div>
             <EditProductForm
+              loading={loading}
               editProduct={editProduct}
               handleEditProduct={handleEditProduct}
             />

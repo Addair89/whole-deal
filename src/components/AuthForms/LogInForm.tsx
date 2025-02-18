@@ -51,15 +51,20 @@ const LogInForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <fieldset className="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box">
-        <legend className="fieldset-legend">Login</legend>
+    <form
+      className="flex justify-center items-center bg-PBG-100 pt-[10%]"
+      onSubmit={handleSubmit}
+    >
+      <fieldset className="fieldset grid-cols-1 w-xl bg-PBG-100 border border-base-300 p-4 rounded-box shadow-PS text-PT-100 text-lg">
+        <legend className="fieldset-legend text-3xl text-PT-100 font-extrabold bg-PBG-100">
+          Login
+        </legend>
 
         <label className="fieldset-label">Email</label>
         <input
           onChange={(e) => setEmail(e.target.value)}
           type="email"
-          className="input"
+          className="input w-full bg-PBG-100 focus:border-none focus:outline-none focus:shadow-PS"
           placeholder="Email"
         />
 
@@ -67,11 +72,13 @@ const LogInForm: React.FC = () => {
         <input
           onChange={(e) => setPassword(e.target.value)}
           type="password"
-          className="input"
+          className="input w-full bg-PBG-100 focus:border-none focus:outline-none focus:shadow-PS"
           placeholder="Password"
         />
 
-        <button className="btn btn-neutral mt-4">Login</button>
+        <button className="bg-DBG-100 text-ST-100 p-2 rounded-lg cursor-pointer hover:bg-SBG-100 hover:text-PT-100 hover:shadow-PS mt-4">
+          Login
+        </button>
       </fieldset>
     </form>
   );
