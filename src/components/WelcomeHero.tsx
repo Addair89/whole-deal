@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Welcome = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
 
   return (
     <section className="flex items-center justify-center">

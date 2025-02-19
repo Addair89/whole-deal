@@ -11,10 +11,33 @@ import { SellerDashboard } from "./components/Dashboard/Seller/SellerDashboard";
 import { SellerAllOrders } from "./components/Dashboard/Seller/Orders/SellerAllOrders";
 import { Products } from "./components/Dashboard/Seller/Products/Products";
 import { AuthContext } from "./AuthContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
 
 function App() {
   const { customer } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const getDashboard = async () => {
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_BASE_URL}/api/users/dashboard`,
+          {
+            email,
+          }
+        );
+        console.log("Response from server:", response.data); // Debugging line
+      } catch (error) {
+        console.error("Error setting email:", error);
+      }
+    };
+    if (customer) {
+      setEmail(customer.email);
+      getDashboard();
+    }
+  }, [customer]);
+
   return (
     <main className="font-mulish h-dvh">
       <Router>

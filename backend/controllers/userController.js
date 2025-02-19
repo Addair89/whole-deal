@@ -5,6 +5,28 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const getDashboard = async (req, res) => {
+  const { email } = req.body;
+  console.log("email", email);
+  try {
+    const result = await pool.query(
+      `SELECT 'sellers' AS source, * FROM sellers WHERE email = $1
+        UNION
+        SELECT 'buyers' AS source, * FROM buyers WHERE email = $1
+      `,
+      [email]
+    );
+    const user = result.rows[0];
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json({ source: user.source });
+  } catch (err) {
+    console.error("Error getting dashboard:", err);
+    res.status(500).json({ error: "Failed to get dashboard" });
+  }
+};
+
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   console.log("email", email, "password", password);
@@ -80,4 +102,5 @@ const updateLocation = async (req, res) => {
 export default {
   loginUser,
   updateLocation,
+  getDashboard,
 };
